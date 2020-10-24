@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+   <div class="container">
+<div class="input_fields_wrap">
+  <button class="add_field_button">Add More Fields</button>
+  <div class="row ">
+    <div class="col mb-3 "> 
+  <input type="text" name="mytext[]" autocomplete="on">
+  
+  </div>
+    <div class="col mb-3" id=amount> 
+    <input type="text" name="mytext[]" autocomplete="on">
+</div>
+</div></div>
+
+<button class="submit">Submit</button>
+    <script>
+$(document).ready(function() {
+    var max_fields = 10; //maximum input boxes allowed
+    var wrapper = $(".input_fields_wrap"); //Fields wrapper
+    var add_button = $(".add_field_button"); //Add button ID
+  
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e) { //on add input button click
+      e.preventDefault();
+      if (x < max_fields) { //max input box allowed
+        x++; //text box increment
+        $(wrapper).append('<div class="row"><div class="col mb-3"> <input class="form-control" type="text" name="mytext[]"/></div><div class="col-md-2"><input class="form-control" type="number" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div></div>'); //add input box
+      }
+    });
+  
+    $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+      e.preventDefault();
+      $(this).parents('.row').remove();
+      x--;
+    });
+  
+    /* ADDED THIS */
+    $('.submit').click(function() {
+      var list = wrapper.find('input').map(function() {
+        return $(this).val();
+      }).get();
+      // send to server here
+      console.log(list);
+      var arrStr=list;
+      var num = arrStr.map((i)=>Number(i));
+      console.log(num);
+      console.log(num[0]+num[1]);
+     
+    });
+
+    
+    
+    
+  });
+</script>
+</body>
+</html>
